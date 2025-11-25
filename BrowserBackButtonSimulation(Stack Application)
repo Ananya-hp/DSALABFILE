@@ -1,0 +1,75 @@
+history = []          
+forward_stack = []   
+
+def visit_page(page):
+    history.append(page)
+    forward_stack.clear()
+    print(f"Visited: {page}")
+
+def go_back():
+    if len(history) <= 1:
+        print("No pages to go back.")
+        return
+
+    last_page = history.pop()
+    forward_stack.append(last_page)
+
+    print(f"Going back from: {last_page}")
+    print(f"Current page: {history[-1]}")
+
+def go_forward():
+    if not forward_stack:
+        print("No pages to go forward.")
+        return
+
+    next_page = forward_stack.pop()
+    history.append(next_page)
+
+    print(f"Forward to: {next_page}")
+
+def show_history():
+    if not history:
+        print("History is empty.")
+    else:
+        print("History:", " -> ".join(history))
+
+def show_forward():
+    if not forward_stack:
+        print("Forward list is empty.")
+    else:
+        print("Forward pages:", " -> ".join(forward_stack))
+
+
+
+while True:
+    print("\n1. Visit Page")
+    print("2. Back")
+    print("3. Forward (Undo Back)")
+    print("4. Show History")
+    print("5. Show Forward List")
+    print("6. Exit")
+
+    choice = input("Enter choice: ")
+
+    if choice == "1":
+        page = input("Enter page name: ")
+        visit_page(page)
+
+    elif choice == "2":
+        go_back()
+
+    elif choice == "3":
+        go_forward()
+
+    elif choice == "4":
+        show_history()
+
+    elif choice == "5":
+        show_forward()
+
+    elif choice == "6":
+        print("Exiting browser simulation.")
+        break
+
+    else:
+        print("Invalid choice. Try again.")
